@@ -44,7 +44,7 @@ class m190601_092217_tokens extends Migration
     {
         // Get tokens from plugin settings
         $info = Craft::$app->getInfo();
-        $config = $info->config ? unserialize($info->config, ['allowed_classes' => false]) : [];
+        $config = $info->config ? Json::decode($info->config, true) : [];
         $tokens = !empty($config['plugins']['videos']['settings']['tokens']) ? $config['plugins']['videos']['settings']['tokens'] : [];
 
         foreach($tokens as $gatewayHandle => $token) {
