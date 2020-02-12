@@ -5,6 +5,7 @@ namespace dukt\videos\migrations;
 use Craft;
 use craft\db\Migration;
 use yii\helpers\Json;
+use yii\helpers\StringHelper;
 
 /**
  * m190601_092217_tokens migration.
@@ -44,7 +45,21 @@ class m190601_092217_tokens extends Migration
     {
         // Get tokens from plugin settings
         $info = Craft::$app->getInfo();
-        $config = $info->config ? Json::decode($info->config, true) : [];
+
+        if (!$info->config) {
+            $config = [];
+        }
+        else {
+            $config = StringHelper::decdec($info->config);
+
+            if ($config[0] === '{') {
+                $config = Json::decode($config);
+            }
+            else {
+                $config = unserialize($config, ['allowed_classes' => false]);
+            }
+        }
+
         $tokens = !empty($config['plugins']['videos']['settings']['tokens']) ? $config['plugins']['videos']['settings']['tokens'] : [];
 
         foreach($tokens as $gatewayHandle => $token) {
