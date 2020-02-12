@@ -5,7 +5,7 @@ namespace dukt\videos\migrations;
 use Craft;
 use craft\db\Migration;
 use yii\helpers\Json;
-use yii\helpers\StringHelper;
+use craft\helpers\StringHelper;
 
 /**
  * m190601_092217_tokens migration.
