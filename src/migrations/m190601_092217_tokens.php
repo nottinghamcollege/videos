@@ -45,8 +45,9 @@ class m190601_092217_tokens extends Migration
     {
         // Get tokens from plugin settings
         $info = Craft::$app->getInfo();
+        $hasConfig = $info->config ?? null;
 
-        if (!$info->config) {
+        if (!$hasConfig) {
             $config = [];
         }
         else {
